@@ -1,0 +1,4 @@
+// Cordova variables
+ext {
+    // Default Cordova configuration
+}
