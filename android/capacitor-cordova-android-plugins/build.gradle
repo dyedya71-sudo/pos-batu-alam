@@ -54,6 +54,6 @@ dependencies {
 apply from: "cordova.variables.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
-for (def func : cdvPluginPostBuildExtras) {
-    func()
-}
+// for (def func : cdvPluginPostBuildExtras) {
+//     func()
+// }
