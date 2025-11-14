@@ -3,8 +3,6 @@ name: Build Android APK
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -20,34 +18,18 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: Download Android Command Line Tools
-      run: |
-        wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
-        mkdir -p android-sdk/cmdline-tools
-        unzip -q commandlinetools-linux-9477386_latest.zip -d android-sdk/cmdline-tools
-        mv android-sdk/cmdline-tools/cmdline-tools android-sdk/cmdline-tools/latest
-        echo "ANDROID_HOME=$GITHUB_WORKSPACE/android-sdk" >> $GITHUB_ENV
-        echo "$GITHUB_WORKSPACE/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
-        echo "$GITHUB_WORKSPACE/android-sdk/platform-tools" >> $GITHUB_PATH
-        
     - name: Setup Android SDK
-      run: |
-        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "build-tools;33.0.0" "platform-tools"
-        
-    - name: Make gradlew executable
+      uses: android-actions/setup-android@v3
+      
+    - name: Build APK
       run: |
         cd android
         chmod +x ./gradlew
-        
-    - name: Build Debug APK
-      run: |
-        cd android
         ./gradlew assembleDebug
         
-    - name: Upload APK Artifact
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: pos-app-debug-apk
+        name: pos-app-apk
         path: android/app/build/outputs/apk/debug/app-debug.apk
         retention-days: 30
