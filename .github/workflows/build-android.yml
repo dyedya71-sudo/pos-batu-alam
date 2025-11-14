@@ -20,9 +20,21 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
+    - name: Download Android Command Line Tools
+      run: |
+        wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+        mkdir -p android-sdk/cmdline-tools
+        unzip -q commandlinetools-linux-9477386_latest.zip -d android-sdk/cmdline-tools
+        mv android-sdk/cmdline-tools/cmdline-tools android-sdk/cmdline-tools/latest
+        echo "ANDROID_HOME=$GITHUB_WORKSPACE/android-sdk" >> $GITHUB_ENV
+        echo "$GITHUB_WORKSPACE/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+        echo "$GITHUB_WORKSPACE/android-sdk/platform-tools" >> $GITHUB_PATH
+        
     - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
-      
+      run: |
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "build-tools;33.0.0" "platform-tools"
+        
     - name: Make gradlew executable
       run: |
         cd android
