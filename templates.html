@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUMBER BERKAH BATU ALAM - POS System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🪨 SUMBER BERKAH BATU ALAM</h1>
+            <p>Aplikasi Pencatatan Keuangan Multi-Toko</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" data-tab="input">Input Keuangan</button>
+            <button class="nav-btn" data-tab="riwayat">Riwayat</button>
+            <button class="nav-btn" data-tab="backup">Backup Data</button>
+        </nav>
+
+        <!-- Input Tab -->
+        <div id="input" class="tab-content active">
+            <div class="card">
+                <h2>📊 Input Data Harian</h2>
+                
+                <div class="form-group">
+                    <label for="transactionDate">Tanggal Transaksi</label>
+                    <input type="date" id="transactionDate" value="<?php echo date('Y-m-d'); ?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="totalSales">Total Penjualan Hari Ini (Rp)</label>
+                    <input type="number" id="totalSales" placeholder="0" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="cash">Uang Cash di Laci (Rp)</label>
+                    <input type="number" id="cash" placeholder="0" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="transfer">Transfer Masuk (Rp)</label>
+                    <input type="number" id="transfer" placeholder="0" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="expenses">Total Pengeluaran (Rp)</label>
+                    <input type="number" id="expenses" placeholder="0" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Catatan (Opsional)</label>
+                    <textarea id="notes" placeholder="Tambahkan catatan jika diperlukan..."></textarea>
+                </div>
+
+                <div class="summary">
+                    <h3>Ringkasan</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span>Total Penjualan</span>
+                            <strong id="summarySales">Rp 0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total Cash</span>
+                            <strong id="summaryCash">Rp 0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total Transfer</span>
+                            <strong id="summaryTransfer">Rp 0</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Total Pengeluaran</span>
+                            <strong id="summaryExpenses">Rp 0</strong>
+                        </div>
+                        <div class="summary-item highlight">
+                            <span>Selisih (Uang Lebih)</span>
+                            <strong id="summaryDifference">Rp 0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="saveData()">💾 Simpan Data</button>
+            </div>
+        </div>
+
+        <!-- Riwayat Tab -->
+        <div id="riwayat" class="tab-content">
+            <div class="card">
+                <h2>📋 Riwayat Keuangan</h2>
+                <div class="table-container">
+                    <table id="historyTable">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Penjualan</th>
+                                <th>Cash</th>
+                                <th>Transfer</th>
+                                <th>Pengeluaran</th>
+                                <th>Selisih</th>
+                                <th>Catatan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="emptyState" class="empty-state">
+                    Belum ada data keuangan
+                </div>
+            </div>
+        </div>
+
+        <!-- Backup Tab -->
+        <div id="backup" class="tab-content">
+            <div class="card">
+                <h2>🔄 Backup Data Keuangan</h2>
+                
+                <div class="backup-actions">
+                    <button class="btn-success" onclick="exportToJSON()">
+                        📤 Export Data (JSON)
+                    </button>
+                    
+                    <button class="btn-info" onclick="exportToCSV()">
+                        📊 Export Data (Excel)
+                    </button>
+                    
+                    <button class="btn-warning" onclick="importData()">
+                        📥 Import Data
+                    </button>
+
+                    <button class="btn-danger" onclick="clearAllData()">
+                        🗑️ Hapus Semua Data
+                    </button>
+                </div>
+                
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+                
+                <div class="backup-info">
+                    <div id="backupStatus">
+                        Memuat info data...
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <strong>💡 Tips Backup:</strong>
+                    <ul>
+                        <li>Export data secara berkala (minimal seminggu sekali)</li>
+                        <li>Simpan file backup di tempat aman (Google Drive, flashdisk)</li>
+                        <li>Backup sebelum menghapus data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 FEBRI ROZI - Aplikasi Pencatatan Keuangan Multi-Toko</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

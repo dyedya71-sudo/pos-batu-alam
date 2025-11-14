@@ -1,0 +1,15 @@
+# Android
+android/.gradle/
+android/app/build/
+android/.idea/
+android/local.properties
+
+# Node.js
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env

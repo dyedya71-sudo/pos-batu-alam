@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">POS Batu Alam</string>
+    <string name="title_activity_main">POS Batu Alam</string>
+    <string name="package_name">com.sumberberkah.pos</string>
+    <string name="custom_url_scheme">com.sumberberkah.pos</string>
+</resources>
